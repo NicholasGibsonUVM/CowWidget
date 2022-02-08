@@ -46,10 +46,12 @@ def event(cycle,check,event_number,x):
 
 
 def update(cycle,check,event_number,x):
-    if (x <= 0) :
+    if (x <= 160) :
         check = 2
-    elif (x >= width):
+        event_number = 0
+    elif (x >= width - 160):
         check = 1
+        event_number = 5
     if check==1:
         frame = walk_left[cycle]
         cycle , event_number = gif_work(cycle,walk_left,event_number,1,8)
@@ -72,21 +74,23 @@ def update(cycle,check,event_number,x):
 walk_right = []
 loadGif(walk_right, 19, Image.open(impath+"Right-Cow-Transparent.gif"))
 walk_left = []
-loadGif(walk_left, 20, Image.open(impath+"Left-Cow-Transparent.gif"))
+loadGif(walk_left, 19, Image.open(impath+"Left-Cow-Transparent.gif"))
+
+global label
 
 if (platform.system() == 'Windows'):
     window.config(highlightbackground='yellow')
     window.overrideredirect(True)
     window.wm_attributes("-topmost", True)
     window.wm_attributes('-transparentcolor', 'yellow')
+    label = tk.Label(window,bd=0,bg='yellow')
 else:
     window.overrideredirect(1)
     window.overrideredirect(0)
     window.wm_attributes("-topmost", True)
     window.wm_attributes("-transparent", True)
+    label = tk.Label(window,bd=0,bg='systemTransparent')
 
-
-label = tk.Label(window,bd=0,bg='yellow')
 label.pack()
 
 window.after(1,update,cycle,check,event_number,x)
