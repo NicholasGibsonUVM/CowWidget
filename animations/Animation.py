@@ -30,22 +30,27 @@ class Cow(tk.Tk):
             self.label.config(bg='systemTransparent')
         self.label.pack()
 
-    def addGif(self, gifPath, frames, xChange, yChange):
+    def addGif(self, gifPath, frames, xChange, yChange, eventLength = 20, canReplay = True):
         gifArray = dict()
         gifArray["gif"] = Gif(gifPath, frames)
         gifArray["xChange"] = xChange
         gifArray["yChange"] = yChange
+        gifArray["eventLength"] = eventLength
+        gifArray["canReplay"] = canReplay
         self.gifs.append(gifArray)
 
     def setEvent(self):
         #Get New Event and Reset gif if neccesary
         newEvent = self.event
-        if (self.changeEvent > 20):
+        if (self.changeEvent > self.gifs[self.event]["eventLength"]):
             self.changeEvent = 0
+            #Generate new event and make sure that it's different if gif can't replay
             newEvent = random.randrange(0, len(self.gifs))
-        if (newEvent != self.event):
-            self.gifs[self.event]["gif"].reset()
-            self.event = newEvent
+            while(not(self.gifs[self.event]["canReplay"]) and newEvent == self.event):
+                newEvent = random.randrange(0, len(self.gifs))
+            if (newEvent != self.event):
+                self.gifs[self.event]["gif"].reset()
+                self.event = newEvent
         self.changeEvent += 1
 
     def setLabel(self):
@@ -57,14 +62,14 @@ class Cow(tk.Tk):
         self.xPos += self.gifs[self.event]["xChange"]
         self.yPos += self.gifs[self.event]["yChange"]
         #Check bounds
-        if (self.xPos >= (self.maxWidth + 160)):
-            self.xPos = 0
-        elif (self.xPos <= -160):
-            self.xPos = self.maxWidth
-        if (self.yPos >= (self.maxHeight + 160)):
-            self.yPos = 0
-        elif (self.yPos <= -160):
-            self.yPos = self.maxHeight
+        if (self.xPos >= (self.maxWidth + 10)):
+            self.xPos = -160 / 2
+        elif (self.xPos <= -10):
+            self.xPos = self.maxWidth + 160 / 2
+        if (self.yPos >= (self.maxHeight + 10)):
+            self.yPos = -160 / 2
+        elif (self.yPos <= -10):
+            self.yPos = self.maxHeight + 160 / 2
         #change Position
         super().geometry('160x160+'+str(self.xPos)+'+'+str(self.yPos))
 

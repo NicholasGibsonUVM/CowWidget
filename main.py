@@ -17,7 +17,7 @@ def main():
     cow.addGif(pathPrefix + "Right-Cow-Transparent.gif", 4, 3, 0)
     cow.addGif(pathPrefix + "Down-Cow-Transparent.gif", 4, 0, 3)
     cow.addGif(pathPrefix + "Up-Cow-Transparent.gif", 4, 0, -3)
-    cow.addGif(pathPrefix + "Eat-Cow-Transparent.gif", 14, 0, 0)
+    cow.addGif(pathPrefix + "Eat-Cow-Transparent.gif", 14, 0, 0, eventLength=14, canReplay=False)
     cow.after(100, update, cow)
     tk.mainloop()
 
