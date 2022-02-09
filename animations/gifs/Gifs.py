@@ -13,7 +13,7 @@ class Gif():
     
     def update(self):
         self.cycle += 1
-        if (self.cylce >= self.frames):
+        if (self.cycle >= self.frames):
             self.reset()
         self.currentFrame = self.gifArray[self.cycle]
 

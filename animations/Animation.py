@@ -12,7 +12,7 @@ class Cow(tk.Tk):
         self.label = tk.Label(self, bd=0)
         self.maxWidth , self.maxHeight = pyautogui.size()
         self.xPos = (int) (self.maxWidth / 2)
-        self.yPos = (int) (self.maxHeight - 200)
+        self.yPos = (int) (200)
         self.event = 0
         self.changeEvent = 0
         self.gifs = []
@@ -37,9 +37,9 @@ class Cow(tk.Tk):
         gifArray["yChange"] = yChange
         self.gifs.append(gifArray)
 
-    def update(self):
+    def setEvent(self):
         #Get New Event and Reset gif if neccesary
-        newEvent = 0
+        newEvent = self.event
         if (self.changeEvent > 20):
             self.changeEvent = 0
             newEvent = random.randrange(0, len(self.gifs))
@@ -47,13 +47,24 @@ class Cow(tk.Tk):
             self.gifs[self.event]["gif"].reset()
             self.event = newEvent
         self.changeEvent += 1
-        
+
+    def setLabel(self):
+        self.gifs[self.event]["gif"].update()
+        self.label.config(image=(self.gifs[self.event]["gif"].getCurrentFrame()))
+
+    def moveWindow(self):
         #Update gif and label then repack
         self.xPos += self.gifs[self.event]["xChange"]
         self.yPos += self.gifs[self.event]["yChange"]
         super().geometry('160x160+'+str(self.xPos)+'+'+str(self.yPos))
-        self.gifs[self.event].update()
-        self.label.config(image=(self.gifs[self.event]["gif"].getCurrentFrame()))
+
+    def updateWindow(self):
         self.label.pack_forget()
         self.label.pack()
+
+    def update(self):
+        self.setEvent()
+        self.moveWindow()
+        self.setLabel()
+        self.updateWindow()
 
