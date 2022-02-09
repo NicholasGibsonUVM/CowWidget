@@ -62,14 +62,14 @@ class Cow(tk.Tk):
         self.xPos += self.gifs[self.event]["xChange"]
         self.yPos += self.gifs[self.event]["yChange"]
         #Check bounds
-        if (self.xPos >= (self.maxWidth + 10)):
-            self.xPos = -160 / 2
-        elif (self.xPos <= -10):
-            self.xPos = self.maxWidth + 160 / 2
-        if (self.yPos >= (self.maxHeight + 10)):
-            self.yPos = -160 / 2
-        elif (self.yPos <= -10):
-            self.yPos = self.maxHeight + 160 / 2
+        if (self.xPos >= (self.maxWidth)):
+            self.xPos = (int) (0)
+        elif (self.xPos <= 0):
+            self.xPos = (int) (self.maxWidth)
+        if (self.yPos >= (self.maxHeight)):
+            self.yPos = (int) (0)
+        elif (self.yPos <= 0):
+            self.yPos = (int) (self.maxHeight)
         #change Position
         super().geometry('160x160+'+str(self.xPos)+'+'+str(self.yPos))
 
