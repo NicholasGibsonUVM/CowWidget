@@ -56,6 +56,16 @@ class Cow(tk.Tk):
         #Update gif and label then repack
         self.xPos += self.gifs[self.event]["xChange"]
         self.yPos += self.gifs[self.event]["yChange"]
+        #Check bounds
+        if (self.xPos >= (self.maxWidth + 160)):
+            self.xPos = 0
+        elif (self.xPos <= -160):
+            self.xPos = self.maxWidth
+        if (self.yPos >= (self.maxHeight + 160)):
+            self.yPos = 0
+        elif (self.yPos <= -160):
+            self.yPos = self.maxHeight
+        #change Position
         super().geometry('160x160+'+str(self.xPos)+'+'+str(self.yPos))
 
     def updateWindow(self):
