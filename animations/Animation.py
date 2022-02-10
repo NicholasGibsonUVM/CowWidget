@@ -5,6 +5,14 @@ import random
 import time
 from .gifs.Gifs import Gif
 
+###
+#   TODO:
+#   Figure Out a better way to do bounds
+#   Add Clickable Function   
+#   Add Message Function   
+#
+###
+
 class Cow(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -15,6 +23,7 @@ class Cow(tk.Tk):
         self.yPos = (int) (200)
         self.event = 0
         self.changeEvent = 0
+        self.maxOff = 20
         self.gifs = []
         if (self.system == "Windows"):
             super().config(highlightbackground='yellow')
@@ -30,7 +39,7 @@ class Cow(tk.Tk):
             self.label.config(bg='systemTransparent')
         self.label.pack()
 
-    def addGif(self, gifPath, frames, xChange, yChange, eventLength = 20, canReplay = True):
+    def addGif(self, gifPath, frames, xChange, yChange, eventLength = 80, canReplay = True):
         gifArray = dict()
         gifArray["gif"] = Gif(gifPath, frames)
         gifArray["xChange"] = xChange
@@ -58,18 +67,18 @@ class Cow(tk.Tk):
         self.label.config(image=(self.gifs[self.event]["gif"].getCurrentFrame()))
 
     def moveWindow(self):
-        #Update gif and label then repack
+        #Update location
         self.xPos += self.gifs[self.event]["xChange"]
         self.yPos += self.gifs[self.event]["yChange"]
         #Check bounds
-        if (self.xPos >= (self.maxWidth)):
-            self.xPos = (int) (0)
-        elif (self.xPos <= 0):
-            self.xPos = (int) (self.maxWidth)
-        if (self.yPos >= (self.maxHeight)):
-            self.yPos = (int) (0)
-        elif (self.yPos <= 0):
-            self.yPos = (int) (self.maxHeight)
+        if (self.xPos >= (self.maxWidth + self.maxOff)):
+            self.xPos = (int) (-160 + self.maxOff)
+        elif (self.xPos <= -160-self.maxOff):
+            self.xPos = (int) (self.maxWidth - self.maxOff)
+        if (self.yPos >= (self.maxHeight + self.maxOff)):
+            self.yPos = (int) (-160 + self.maxOff)
+        elif (self.yPos <= -160-self.maxOff):
+            self.yPos = (int) (self.maxHeight - self.maxOff)
         #change Position
         super().geometry('160x160+'+str(self.xPos)+'+'+str(self.yPos))
 
