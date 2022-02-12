@@ -1,5 +1,6 @@
 import tkinter as tk
 import platform
+from matplotlib import animation
 import pyautogui  
 import random
 import time
@@ -7,10 +8,9 @@ from .gifs.Gifs import Gif
 
 ###
 #   TODO:
-#   Figure Out a better way to do bounds
 #   Add Clickable Function   
 #   Add Message Function   
-#
+#  
 ###
 
 class Cow(tk.Tk):
@@ -39,14 +39,18 @@ class Cow(tk.Tk):
             self.label.config(bg='systemTransparent')
         self.label.pack()
 
-    def addGif(self, gifPath, frames, xChange, yChange, eventLength = 80, canReplay = True):
+    def addGif(self, gifPath, frames, xChange, yChange, eventLength = 80, canReplay = True, speed = 100):
         gifArray = dict()
         gifArray["gif"] = Gif(gifPath, frames)
         gifArray["xChange"] = xChange
         gifArray["yChange"] = yChange
         gifArray["eventLength"] = eventLength
         gifArray["canReplay"] = canReplay
+        gifArray["animationSpeed"] = speed
         self.gifs.append(gifArray)
+
+    def getAnimationSpeed(self):
+        return self.gifs[self.event]["animationSpeed"]
 
     def setEvent(self):
         #Get New Event and Reset gif if neccesary
