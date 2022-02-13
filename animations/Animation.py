@@ -32,7 +32,7 @@ class Cow(tk.Tk):
 
     def addGif(self, gifPath, frames, xChange, yChange, eventLength = 80, canReplay = True, speed = 100):
         gifArray = dict()
-        gifArray["gif"] = Gif(gifPath, frames)
+        gifArray["gif"] = Gif(self, gifPath, frames)
         gifArray["xChange"] = xChange
         gifArray["yChange"] = yChange
         gifArray["eventLength"] = eventLength
