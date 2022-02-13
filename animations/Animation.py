@@ -17,7 +17,6 @@ class Cow(tk.Tk):
     def __init__(self):
         super().__init__()
         self.system = platform.system() 
-        self.label = tk.Label(self, bd=0)
         self.maxWidth , self.maxHeight = pyautogui.size()
         self.xPos = (int) (self.maxWidth / 2)
         self.yPos = (int) (200)
@@ -25,19 +24,12 @@ class Cow(tk.Tk):
         self.changeEvent = 0
         self.maxOff = 20
         self.gifs = []
-        if (self.system == "Windows"):
-            super().config(highlightbackground='yellow')
-            super().overrideredirect(True)
-            super().wm_attributes("-topmost", True)
-            super().wm_attributes('-transparentcolor', 'yellow')
-            self.label.config(bg="yellow")
-        else:
-            super().overrideredirect(1)
-            super().overrideredirect(0)
-            super().wm_attributes("-topmost", True)
-            super().wm_attributes("-transparent", True)
-            self.label.config(bg='systemTransparent')
-        self.label.pack()
+        self.currLabel = self.gifs[self.event]['gif'].getCurrentFrame()
+        super().overrideredirect(1)
+        super().overrideredirect(0)
+        super().wm_attributes("-topmost", True)
+        super().wm_attributes("-transparent", True)
+        self.currLabel.pack()
 
     def addGif(self, gifPath, frames, xChange, yChange, eventLength = 80, canReplay = True, speed = 100):
         gifArray = dict()
@@ -68,7 +60,9 @@ class Cow(tk.Tk):
 
     def setLabel(self):
         self.gifs[self.event]["gif"].update()
-        self.label.config(image=(self.gifs[self.event]["gif"].getCurrentFrame()))
+        self.currLabel.pack_forget()
+        self.currLabel = self.gifs[self.event]["gif"].getCurrentFrame()
+        self.currLabel.pack()
 
     def moveWindow(self):
         #Update location
@@ -86,13 +80,8 @@ class Cow(tk.Tk):
         #change Position
         super().geometry('160x160+'+str(self.xPos)+'+'+str(self.yPos))
 
-    def updateWindow(self):
-        self.label.pack_forget()
-        self.label.pack()
-
     def update(self):
         self.setEvent()
         self.moveWindow()
         self.setLabel()
-        self.updateWindow()
 
