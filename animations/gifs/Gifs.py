@@ -6,13 +6,14 @@ class Gif():
         self.gifPath = gifPath
         self.frames = frames
         self.cycle = 0
-        self.gifArray = [tk.PhotoImage(file=gifPath, format='gif -index %i' %(i)) for i in range(frames)]
+        self.imageArray = [tk.PhotoImage(file=gifPath, format='gif -index %i' %(i)) for i in range(frames)]
+        self.gifArray = []
         self.createLabels()
         self.currentFrame = self.gifArray[0]
 
     def createLabels(self):
-        for i in self.gifArray:
-            self.gifArray[i] = tk.Label(self.root, bd = 0, bg = 'systemTransparent', image = self.gifArray[i])
+        for i in range(0, self.imageArray):
+            self.gifArray[i].append(tk.Label(self.root, bd = 0, bg = 'systemTransparent', image = self.imageArray[i]))
 
     def reset(self):
         self.cycle = 0

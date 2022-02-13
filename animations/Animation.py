@@ -84,4 +84,5 @@ class Cow(tk.Tk):
         self.setEvent()
         self.moveWindow()
         self.setLabel()
+        
 
