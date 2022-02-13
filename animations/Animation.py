@@ -24,12 +24,11 @@ class Cow(tk.Tk):
         self.changeEvent = 0
         self.maxOff = 20
         self.gifs = []
-        self.currLabel = self.gifs[self.event]['gif'].getCurrentFrame()
+        self.currLabel = tk.Label()
         super().overrideredirect(1)
         super().overrideredirect(0)
         super().wm_attributes("-topmost", True)
         super().wm_attributes("-transparent", True)
-        self.currLabel.pack()
 
     def addGif(self, gifPath, frames, xChange, yChange, eventLength = 80, canReplay = True, speed = 100):
         gifArray = dict()
