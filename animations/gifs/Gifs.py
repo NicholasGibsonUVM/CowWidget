@@ -13,7 +13,7 @@ class Gif():
 
     def createLabels(self):
         for i in range(0, len(self.imageArray)):
-            self.gifArray[i].append(tk.Label(self.root, bd = 0, bg = 'systemTransparent', image = self.imageArray[i]))
+            self.gifArray.append(tk.Label(self.root, bd = 0, bg = 'systemTransparent', image = self.imageArray[i]))
 
     def reset(self):
         self.cycle = 0
