@@ -4,9 +4,10 @@ import tkinter as tk
 
 ###
 #   TODO
-#   Add in Threading to increase the efficiency and potentialy get rid of flickering on mac
 #   Add Feed Mechanic
-#
+#   Make a cow class that can be animated by Animation so that you can make more complex behaviors happen
+#   Add a way for the cow to drag messages across the screen
+#   Add a click function the speed the cow up for a period of time
 ###
 
 def update(cow):

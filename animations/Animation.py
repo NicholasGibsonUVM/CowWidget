@@ -10,7 +10,7 @@ from .gifs.Gifs import Gif
 #   TODO:
 #   Add Clickable Function   
 #   Add Message Function   
-#  
+#   
 ###
 
 class Cow(tk.Tk):
